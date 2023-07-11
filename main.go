@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/SayatAbdikul/word_rarity_api/post"
 	"github.com/SayatAbdikul/word_rarity_api/server"
@@ -9,11 +9,9 @@ import (
 )
 
 func main() {
-	db, err := server.Connect()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
+	server.Connect()
+	defer server.DB.Close()
+	fmt.Println(1)
 	router := gin.Default()
 	router.POST("/add_text", post.AddText)
 	router.Run(":8080")

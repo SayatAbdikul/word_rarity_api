@@ -6,10 +6,16 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func Connect() (*sql.DB, error) {
-	db, err := sql.Open("postgres", "postgres://sayat:Sayat2005!@localhost:5432/word_rarity_db?sslmode=disable")
+var DB *sql.DB
+
+func Connect() {
+	var err error
+	DB, err = sql.Open("postgres", "postgres://sayat:Sayat2005!@localhost:5432/word_rarity_db?sslmode=disable")
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	return db, nil
+	if err := DB.Ping(); err != nil {
+		panic(err)
+	}
+
 }
